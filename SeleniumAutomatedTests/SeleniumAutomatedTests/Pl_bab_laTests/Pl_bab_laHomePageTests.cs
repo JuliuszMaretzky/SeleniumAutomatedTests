@@ -28,7 +28,17 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         public void LoadHomePage()
         {
             pl_bab_laHomePage.LoadPage();
-            Assert.IsTrue(pl_bab_laHomePage.IsLoaded, "Page was not loaded properly");
+        }
+
+        [TestCase("English", "Polish")]
+        [TestCase("German", "Esperanto")]
+        [TestCase("Finnish", "Greek")]
+        public void ChangeLanguagesToTranslateFromAndToByClicking(string languageFrom, string languageTo)
+        {
+            pl_bab_laHomePage.LoadPage();
+            pl_bab_laHomePage.ChangeDictionaryLanguageFromByClicking(languageFrom);
+            pl_bab_laHomePage.ChangeDictionaryLanguageToByClicking(languageTo);
+            pl_bab_laHomePage.VerifyTranslateBoxText(languageFrom, languageTo);
         }
     }
 }
