@@ -40,5 +40,16 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
             pl_bab_laHomePage.ChangeDictionaryLanguageToByClicking(languageTo);
             pl_bab_laHomePage.VerifyTranslateBoxText(languageFrom, languageTo);
         }
+
+        [TestCase("Polish", "German", "pies", "piesza")]
+        [TestCase("English", "Esperanto", "urgent", "urgently")]
+        public void VerifyIfSuggestionIsVisibleAfterWriteWord(string languageFrom, string languageTo, string word, string suggestion)
+        {
+            pl_bab_laHomePage.LoadPage();
+            pl_bab_laHomePage.ChangeDictionaryLanguageFromByClicking(languageFrom);
+            pl_bab_laHomePage.ChangeDictionaryLanguageToByClicking(languageTo);
+            pl_bab_laHomePage.WriteWord(word);
+            pl_bab_laHomePage.VerifyIfSuggestionIsOnList(suggestion.Replace(word,""));
+        }
     }
 }

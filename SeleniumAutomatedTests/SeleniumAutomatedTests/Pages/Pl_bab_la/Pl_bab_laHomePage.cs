@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 using System;
+using System.Threading;
 
 namespace SeleniumAutomatedTests.Pages.pl_bab_la
 {
@@ -11,6 +12,8 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
         private By AcceptPrivacyButton => By.Id("onetrust-accept-btn-handler");
         private IWebElement DictionaryLanguageFromDropdown => Driver.FindElement(By.XPath("//*[@class='material-icons expandIcon']"));
         private IWebElement DictionaryLanguageToDropdown => Driver.FindElement(By.XPath("//*[@class='material-icons expandIcon right']"));
+        private IWebElement DictionaryTextBox => Driver.FindElement(By.XPath("//*[@class='action-search typeahead tt-input']"));
+        private IWebElement SuggestionsList => Driver.FindElement(By.XPath("//*[@class='tt-dataset tt-dataset-babSuggestions']"));
 
         public Pl_bab_laHomePage(IWebDriver driver) : base(driver) { }
 
@@ -40,6 +43,18 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
             var actualLanguage =
                 DictionaryLanguageToDropdown.FindElement(By.XPath($"//*[@data-lang='{Constants.LanguageCode[languageTo]}']"));
             Assert.IsTrue(actualLanguage.Displayed, "Language to was not changed properly");
+        }
+
+        internal void WriteWord(string word)
+        {
+            DictionaryTextBox.SendKeys(word);
+        }
+
+        internal void VerifyIfSuggestionIsOnList(string suggestion)
+        {
+            Thread.Sleep(500);
+            var searchedSuggestions = SuggestionsList.FindElements(By.XPath($"div[text()='{suggestion}']"));
+            Assert.IsTrue(searchedSuggestions.Count > 0, "Suggestion is not on the list");
         }
 
         internal void VerifyTranslateBoxText(string languageFrom, string languageTo)
