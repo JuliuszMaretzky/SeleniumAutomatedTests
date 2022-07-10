@@ -10,10 +10,12 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
     {
         private By loadingMarker => By.XPath("//h1[contains(text(), 'Słownik online w ')]");
         private By AcceptPrivacyButton => By.Id("onetrust-accept-btn-handler");
+        private By LanguageWarningText => By.XPath("//*[@style='opacity: 1; visibility: visible;']");
         private IWebElement DictionaryLanguageFromDropdown => Driver.FindElement(By.XPath("//*[@class='material-icons expandIcon']"));
         private IWebElement DictionaryLanguageToDropdown => Driver.FindElement(By.XPath("//*[@class='material-icons expandIcon right']"));
         private IWebElement DictionaryTextBox => Driver.FindElement(By.XPath("//*[@class='action-search typeahead tt-input']"));
         private IWebElement SuggestionsList => Driver.FindElement(By.XPath("//*[@class='tt-dataset tt-dataset-babSuggestions']"));
+        private IWebElement TranslateButton => Driver.FindElement(By.ClassName("action-panel-form-submit"));
 
         public Pl_bab_laHomePage(IWebDriver driver) : base(driver) { }
 
@@ -30,8 +32,10 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
         internal void ChangeDictionaryLanguageFromByClicking(string languageFrom)
         {
             DictionaryLanguageFromDropdown.Click();
-            Driver.FindElement(By.XPath($"//ul[@id='langUL']//*[@data-lang='{Constants.LanguageCode[languageFrom]}']")).Click();
-            var actualLanguage = 
+            var newLanguage = Wait.Until(ExpectedConditions.ElementToBeClickable(Driver.FindElement(
+                By.XPath($"//ul[@id='langUL']//*[@data-lang='{Constants.LanguageCode[languageFrom]}']"))));
+            newLanguage.Click();
+            var actualLanguage =
                 DictionaryLanguageFromDropdown.FindElement(By.XPath($"//*[@data-lang='{Constants.LanguageCode[languageFrom]}']"));
             Assert.IsTrue(actualLanguage.Displayed, "Language from was not changed properly");
         }
@@ -39,10 +43,23 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
         internal void ChangeDictionaryLanguageToByClicking(string languageTo)
         {
             DictionaryLanguageToDropdown.Click();
-            Driver.FindElement(By.XPath($"//ul[@id='langUL']//*[@data-lang='{Constants.LanguageCode[languageTo]}']")).Click();
+            var newLanguage = Wait.Until(ExpectedConditions.ElementToBeClickable(Driver.FindElement(
+                By.XPath($"//ul[@id='langUL']//*[@data-lang='{Constants.LanguageCode[languageTo]}']"))));
+            newLanguage.Click();
             var actualLanguage =
                 DictionaryLanguageToDropdown.FindElement(By.XPath($"//*[@data-lang='{Constants.LanguageCode[languageTo]}']"));
             Assert.IsTrue(actualLanguage.Displayed, "Language to was not changed properly");
+        }
+
+        internal void PressEnterInDictionaryTextBox()
+        {
+            DictionaryTextBox.SendKeys(Keys.Enter);
+        }
+
+        internal void VerifyIfLanguageWarningIsVisible()
+        {
+            var languageWarning = Driver.FindElements(LanguageWarningText);
+            Assert.IsTrue(languageWarning.Count == 1, "Language warning was not visible");
         }
 
         internal void WriteWord(string word)

@@ -41,6 +41,17 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
             pl_bab_laHomePage.VerifyTranslateBoxText(languageFrom, languageTo);
         }
 
+        [TestCase("Polish")]
+        [TestCase("Finnish")]
+        public void VerifyIfLanguageWarningAppearsWhenFromLanguageIsSameAsTo(string language)
+        {
+            pl_bab_laHomePage.LoadPage();
+            pl_bab_laHomePage.ChangeDictionaryLanguageFromByClicking(language);
+            pl_bab_laHomePage.ChangeDictionaryLanguageToByClicking(language);
+            pl_bab_laHomePage.PressEnterInDictionaryTextBox();
+            pl_bab_laHomePage.VerifyIfLanguageWarningIsVisible();
+        }
+
         [TestCase("Polish", "German", "pies", "piesza")]
         [TestCase("English", "Esperanto", "urgent", "urgently")]
         public void VerifyIfSuggestionIsVisibleAfterWriteWord(string languageFrom, string languageTo, string word, string suggestion)
