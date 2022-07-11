@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumAutomatedTests.Pages.pl_bab_la;
+using SeleniumAutomatedTests.Pages.Pl_bab_la;
 
 namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
 {
@@ -9,12 +10,14 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
     {
         private IWebDriver Driver { get; set; }
         private Pl_bab_laHomePage pl_bab_laHomePage;
+        private Pl_bab_laAboutUsPage pl_bab_laAboutUsPage;
 
         [SetUp]
         public void Setup()
         {
             Driver = new WebDriverFactory().Create(BrowserType.Chrome);
             pl_bab_laHomePage = new Pl_bab_laHomePage(Driver);
+            pl_bab_laAboutUsPage = new Pl_bab_laAboutUsPage(Driver);
         }
 
         [TearDown]
@@ -61,6 +64,14 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
             pl_bab_laHomePage.ChangeDictionaryLanguageToByClicking(languageTo);
             pl_bab_laHomePage.WriteWord(word);
             pl_bab_laHomePage.VerifyIfSuggestionIsOnList(suggestion.Replace(word,""));
+        }
+
+        [Test]
+        public void GoToAboutUsPageByLink()
+        {
+            pl_bab_laHomePage.LoadPage();
+            var aboutUsPage = pl_bab_laHomePage.GoToAboutUsPage();
+            Assert.IsTrue(aboutUsPage.IsLoaded, "About Us page did not load properly");
         }
     }
 }

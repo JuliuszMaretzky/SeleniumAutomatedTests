@@ -16,11 +16,11 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
             Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
         }
 
-        protected bool VerifyIfElementIsVisible(By element)
+        protected bool VerifyIfElementIsVisible(By locator)
         {
             try
             {
-                var loadingPageMarker = Wait.Until(ExpectedConditions.ElementIsVisible(element));
+                var loadingPageMarker = Wait.Until(ExpectedConditions.ElementIsVisible(locator));
                 return loadingPageMarker.Displayed;
             }
             catch (NoSuchElementException)

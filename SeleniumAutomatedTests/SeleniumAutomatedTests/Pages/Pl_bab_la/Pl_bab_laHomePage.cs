@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
+using SeleniumAutomatedTests.Pages.Pl_bab_la;
 using SeleniumExtras.WaitHelpers;
 using System;
 using System.Threading;
@@ -8,9 +9,12 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
 {
     public class Pl_bab_laHomePage : Pl_bab_laBasePage
     {
-        private By loadingMarker => By.XPath("//h1[contains(text(), 'Słownik online w ')]");
-        private By AcceptPrivacyButton => By.Id("onetrust-accept-btn-handler");
-        private By LanguageWarningText => By.XPath("//*[@style='opacity: 1; visibility: visible;']");
+        private By loadingMarkerLocator => By.XPath("//h1[contains(text(), 'Słownik online w ')]");
+        private By AcceptPrivacyButtonLocator => By.Id("onetrust-accept-btn-handler");
+        private By LanguageWarningTextLocator => By.XPath("//*[@style='opacity: 1; visibility: visible;']");
+        private By AboutUsLinkLocator => By.XPath("//li[contains(@class, 'corporate')]");
+
+        private IWebElement MenuButton => Driver.FindElement(By.XPath("//a[@class='navbar-brand' and @role='button']"));
         private IWebElement DictionaryLanguageFromDropdown => Driver.FindElement(By.XPath("//*[@class='material-icons expandIcon']"));
         private IWebElement DictionaryLanguageToDropdown => Driver.FindElement(By.XPath("//*[@class='material-icons expandIcon right']"));
         private IWebElement DictionaryTextBox => Driver.FindElement(By.XPath("//*[@class='action-search typeahead tt-input']"));
@@ -19,7 +23,7 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
 
         public Pl_bab_laHomePage(IWebDriver driver) : base(driver) { }
 
-        public bool IsLoaded => VerifyIfElementIsVisible(loadingMarker);
+        public bool IsLoaded => VerifyIfElementIsVisible(loadingMarkerLocator);
 
         internal void LoadPage()
         {
@@ -51,6 +55,15 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
             Assert.IsTrue(actualLanguage.Displayed, "Language to was not changed properly");
         }
 
+        internal Pl_bab_laAboutUsPage GoToAboutUsPage()
+        {
+            MenuButton.Click();
+            var aboutUsLink = Wait.Until(ExpectedConditions.ElementIsVisible(AboutUsLinkLocator));
+            //Driver.FindElement(AboutUsLinkLocator).Click();
+            aboutUsLink.Click();
+            return new Pl_bab_laAboutUsPage(Driver);
+        }
+
         internal void PressEnterInDictionaryTextBox()
         {
             DictionaryTextBox.SendKeys(Keys.Enter);
@@ -58,7 +71,7 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
 
         internal void VerifyIfLanguageWarningIsVisible()
         {
-            var languageWarning = Driver.FindElements(LanguageWarningText);
+            var languageWarning = Driver.FindElements(LanguageWarningTextLocator);
             Assert.IsTrue(languageWarning.Count == 1, "Language warning was not visible");
         }
 
@@ -86,7 +99,7 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
         {
             try
             {
-                Wait.Until(ExpectedConditions.ElementToBeClickable(AcceptPrivacyButton)).Click();
+                Wait.Until(ExpectedConditions.ElementToBeClickable(AcceptPrivacyButtonLocator)).Click();
             }
             catch (NoSuchElementException)
             {
