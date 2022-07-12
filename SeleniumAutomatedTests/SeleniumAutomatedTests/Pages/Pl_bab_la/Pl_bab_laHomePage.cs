@@ -13,6 +13,7 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
         private By AcceptPrivacyButtonLocator => By.Id("onetrust-accept-btn-handler");
         private By LanguageWarningTextLocator => By.XPath("//*[@style='opacity: 1; visibility: visible;']");
         private By AboutUsLinkLocator => By.XPath("//li[contains(@class, 'corporate')]");
+        private By LifeAbroadLinkLocator => By.XPath("//li[contains(@class, 'magazine')]"); 
 
         private IWebElement MenuButton => Driver.FindElement(By.XPath("//a[@class='navbar-brand' and @role='button']"));
         private IWebElement DictionaryLanguageFromDropdown => Driver.FindElement(By.XPath("//*[@class='material-icons expandIcon']"));
@@ -61,11 +62,18 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
             return new Pl_bab_laHomePage(Driver);
         }
 
+        internal Pl_bab_laLifeAbroadPage GoToLifeAbroadPage()
+        {
+            MenuButton.Click();
+            var lifeAbroadLink = Wait.Until(ExpectedConditions.ElementIsVisible(LifeAbroadLinkLocator));
+            lifeAbroadLink.Click();
+            return new Pl_bab_laLifeAbroadPage(Driver);
+        }
+
         internal Pl_bab_laAboutUsPage GoToAboutUsPage()
         {
             MenuButton.Click();
             var aboutUsLink = Wait.Until(ExpectedConditions.ElementIsVisible(AboutUsLinkLocator));
-            //Driver.FindElement(AboutUsLinkLocator).Click();
             aboutUsLink.Click();
             return new Pl_bab_laAboutUsPage(Driver);
         }

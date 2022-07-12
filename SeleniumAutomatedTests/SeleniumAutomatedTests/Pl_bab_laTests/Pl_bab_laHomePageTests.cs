@@ -60,5 +60,13 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
                 .GoToAboutUsPage()
                 .VerifyIfPageIsLoaded();
         }
+
+        [Test]
+        public void GoToLifeAbroadPageByLink()
+        {
+            pl_bab_laHomePage.LoadPage();
+            var lifeAbroadPage = pl_bab_laHomePage.GoToLifeAbroadPage();
+            Assert.IsTrue(lifeAbroadPage.IsLoaded, "Life Abroad page did not load properly");
+        }
     }
 }
