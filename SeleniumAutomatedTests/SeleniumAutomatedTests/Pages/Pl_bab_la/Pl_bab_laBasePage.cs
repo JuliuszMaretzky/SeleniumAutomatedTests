@@ -1,5 +1,8 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationResources;
+using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumAutomatedTests.Pages.Pl_bab_la;
 using SeleniumExtras.WaitHelpers;
 using System;
 
@@ -7,8 +10,35 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
 {
     public class Pl_bab_laBasePage
     {
+        protected Pl_bab_laBasePage page;
         protected IWebDriver Driver { get; set; }
         protected WebDriverWait Wait { get; set; }
+
+        #region Pages Fields
+
+        private Pl_bab_laHomePage pl_bab_laHomePage;
+        private Pl_bab_laAboutUsPage pl_bab_laAboutUsPage;
+
+        #endregion
+
+        #region Test Methods
+
+        [SetUp]
+        public virtual void Setup()
+        {
+            Driver = new WebDriverFactory().Create(BrowserType.Chrome);
+
+            page = new Pl_bab_laHomePage(Driver);
+        }
+
+        [TearDown]
+        public virtual void Teardown()
+        {
+            Driver.Close();
+            Driver.Quit();
+        }
+
+        #endregion
 
         public Pl_bab_laBasePage(IWebDriver driver)
         {
@@ -28,5 +58,29 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
                 return false;
             }
         }
+
+        #region Page Objects
+
+        public Pl_bab_laHomePage GetPl_bab_laHomePageObject()
+        {
+            if (pl_bab_laHomePage == null)
+            {
+                pl_bab_laHomePage = new Pl_bab_laHomePage(Driver);
+            }
+
+            return pl_bab_laHomePage;
+        }
+
+        public Pl_bab_laAboutUsPage GetPl_bab_laAboutUsPageObject()
+        {
+            if (pl_bab_laAboutUsPage == null)
+            {
+                pl_bab_laAboutUsPage = new Pl_bab_laAboutUsPage(Driver);
+            }
+
+            return pl_bab_laAboutUsPage;
+        }
+
+        #endregion
     }
 }

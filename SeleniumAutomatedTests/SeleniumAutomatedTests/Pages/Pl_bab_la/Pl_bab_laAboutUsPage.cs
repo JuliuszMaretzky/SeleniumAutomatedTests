@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using SeleniumAutomatedTests.Pages.pl_bab_la;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,12 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
         public Pl_bab_laAboutUsPage(IWebDriver driver) : base(driver) { }
 
         public bool IsLoaded => VerifyIfElementIsVisible(loadingMarkerLocator);
+
+        internal Pl_bab_laAboutUsPage VerifyIfPageIsLoaded()
+        {
+            Assert.IsTrue(IsLoaded, "About Us page did not load properly");
+
+            return new Pl_bab_laAboutUsPage(Driver);
+        }
     }
 }

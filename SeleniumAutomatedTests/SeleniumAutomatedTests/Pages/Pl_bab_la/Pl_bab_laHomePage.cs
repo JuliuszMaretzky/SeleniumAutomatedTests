@@ -25,15 +25,17 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
 
         public bool IsLoaded => VerifyIfElementIsVisible(loadingMarkerLocator);
 
-        internal void LoadPage()
+        internal Pl_bab_laHomePage LoadPage()
         {
             Driver.Navigate().GoToUrl("https://pl.bab.la/");
             Driver.Manage().Window.Maximize();
             AcceptPrivacyPolicy();
             Assert.IsTrue(IsLoaded, "Page was not loaded properly");
+
+            return new Pl_bab_laHomePage(Driver);
         }
 
-        internal void ChangeDictionaryLanguageFromByClicking(string languageFrom)
+        internal Pl_bab_laHomePage ChangeDictionaryLanguageFromByClicking(string languageFrom)
         {
             DictionaryLanguageFromDropdown.Click();
             var newLanguage = Wait.Until(ExpectedConditions.ElementToBeClickable(Driver.FindElement(
@@ -42,9 +44,11 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
             var actualLanguage =
                 DictionaryLanguageFromDropdown.FindElement(By.XPath($"//*[@data-lang='{Constants.LanguageCode[languageFrom]}']"));
             Assert.IsTrue(actualLanguage.Displayed, "Language from was not changed properly");
+
+            return new Pl_bab_laHomePage(Driver);
         }
 
-        internal void ChangeDictionaryLanguageToByClicking(string languageTo)
+        internal Pl_bab_laHomePage ChangeDictionaryLanguageToByClicking(string languageTo)
         {
             DictionaryLanguageToDropdown.Click();
             var newLanguage = Wait.Until(ExpectedConditions.ElementToBeClickable(Driver.FindElement(
@@ -53,6 +57,8 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
             var actualLanguage =
                 DictionaryLanguageToDropdown.FindElement(By.XPath($"//*[@data-lang='{Constants.LanguageCode[languageTo]}']"));
             Assert.IsTrue(actualLanguage.Displayed, "Language to was not changed properly");
+
+            return new Pl_bab_laHomePage(Driver);
         }
 
         internal Pl_bab_laAboutUsPage GoToAboutUsPage()
@@ -64,47 +70,56 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
             return new Pl_bab_laAboutUsPage(Driver);
         }
 
-        internal void PressEnterInDictionaryTextBox()
+        internal Pl_bab_laHomePage PressEnterInDictionaryTextBox()
         {
             DictionaryTextBox.SendKeys(Keys.Enter);
+
+            return new Pl_bab_laHomePage(Driver);
         }
 
-        internal void VerifyIfLanguageWarningIsVisible()
+        internal Pl_bab_laHomePage VerifyIfLanguageWarningIsVisible()
         {
             var languageWarning = Driver.FindElements(LanguageWarningTextLocator);
             Assert.IsTrue(languageWarning.Count == 1, "Language warning was not visible");
+
+            return new Pl_bab_laHomePage(Driver);
         }
 
-        internal void WriteWord(string word)
+        internal Pl_bab_laHomePage WriteWord(string word)
         {
             DictionaryTextBox.SendKeys(word);
+
+            return new Pl_bab_laHomePage(Driver);
         }
 
-        internal void VerifyIfSuggestionIsOnList(string suggestion)
+        internal Pl_bab_laHomePage VerifyIfSuggestionIsOnList(string suggestion)
         {
             Thread.Sleep(500);
             var searchedSuggestions = SuggestionsList.FindElements(By.XPath($"div[text()='{suggestion}']"));
             Assert.IsTrue(searchedSuggestions.Count > 0, "Suggestion is not on the list");
+
+            return new Pl_bab_laHomePage(Driver);
         }
 
-        internal void VerifyTranslateBoxText(string languageFrom, string languageTo)
+        internal Pl_bab_laHomePage VerifyTranslateBoxText(string languageFrom, string languageTo)
         {
             Assert.IsTrue(VerifyIfElementIsVisible(By.XPath(
                 $"//input[@class='action-search typeahead tt-input' and @placeholder='" +
                 $"{Constants.LanguageInPolish[languageFrom]} lub {Constants.LanguageInPolish[languageTo]}']"))
                 , "Translation Text Box did not show proper languages");
+
+            return new Pl_bab_laHomePage(Driver);
         }
 
-        private void AcceptPrivacyPolicy()
+        private Pl_bab_laHomePage AcceptPrivacyPolicy()
         {
             try
             {
                 Wait.Until(ExpectedConditions.ElementToBeClickable(AcceptPrivacyButtonLocator)).Click();
             }
-            catch (NoSuchElementException)
-            {
-                return;
-            }
+            catch (NoSuchElementException) { }
+
+            return new Pl_bab_laHomePage(Driver);
         }
     }
 }
