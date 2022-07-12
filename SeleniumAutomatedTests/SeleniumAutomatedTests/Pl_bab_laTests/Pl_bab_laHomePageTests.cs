@@ -73,5 +73,13 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
             var aboutUsPage = pl_bab_laHomePage.GoToAboutUsPage();
             Assert.IsTrue(aboutUsPage.IsLoaded, "About Us page did not load properly");
         }
+
+        [Test]
+        public void GoToLifeAbroadPageByLink()
+        {
+            pl_bab_laHomePage.LoadPage();
+            var lifeAbroadPage = pl_bab_laHomePage.GoToLifeAbroadPage();
+            Assert.IsTrue(lifeAbroadPage.IsLoaded, "Life Abroad page did not load properly");
+        }
     }
 }
