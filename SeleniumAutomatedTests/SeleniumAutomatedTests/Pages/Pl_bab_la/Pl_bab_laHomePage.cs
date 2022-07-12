@@ -26,6 +26,7 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
 
         public bool IsLoaded => VerifyIfElementIsVisible(loadingMarkerLocator);
 
+
         internal Pl_bab_laHomePage LoadPage()
         {
             Driver.Navigate().GoToUrl("https://pl.bab.la/");

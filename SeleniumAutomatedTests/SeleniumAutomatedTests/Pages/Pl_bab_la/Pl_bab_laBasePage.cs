@@ -10,7 +10,6 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
 {
     public class Pl_bab_laBasePage
     {
-        protected Pl_bab_laBasePage page;
         protected IWebDriver Driver { get; set; }
         protected WebDriverWait Wait { get; set; }
 
@@ -18,25 +17,6 @@ namespace SeleniumAutomatedTests.Pages.pl_bab_la
 
         private Pl_bab_laHomePage pl_bab_laHomePage;
         private Pl_bab_laAboutUsPage pl_bab_laAboutUsPage;
-
-        #endregion
-
-        #region Test Methods
-
-        [SetUp]
-        public virtual void Setup()
-        {
-            Driver = new WebDriverFactory().Create(BrowserType.Chrome);
-
-            page = new Pl_bab_laHomePage(Driver);
-        }
-
-        [TearDown]
-        public virtual void Teardown()
-        {
-            Driver.Close();
-            Driver.Quit();
-        }
 
         #endregion
 
