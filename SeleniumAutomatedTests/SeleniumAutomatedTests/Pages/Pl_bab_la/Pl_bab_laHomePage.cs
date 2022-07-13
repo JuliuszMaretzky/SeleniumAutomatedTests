@@ -1,19 +1,22 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
+using System;
 using System.Threading;
-
+//a[@class='dropdown-toggle'
 namespace SeleniumAutomatedTests.Pages.Pl_bab_la
 {
     public class Pl_bab_laHomePage : BasePage
     {
-        private By loadingMarkerLocator => By.XPath("//h1[contains(text(), 'Słownik online w ')]");
+        private By LoadingMarkerLocator => By.XPath("//h1[contains(text(), 'Słownik online w ')]");
         private By AcceptPrivacyButtonLocator => By.Id("onetrust-accept-btn-handler");
         private By LanguageWarningTextLocator => By.XPath("//*[@style='opacity: 1; visibility: visible;']");
         private By AboutUsLinkLocator => By.XPath("//li[contains(@class, 'corporate')]");
-        private By LifeAbroadLinkLocator => By.XPath("//li[contains(@class, 'magazine')]"); 
+        private By LifeAbroadLinkLocator => By.XPath("//li[contains(@class, 'magazine')]");
+        private By GamesLinkLocator => By.XPath("//ul[@class='dropdown-menu']//a[contains(@onclick, 'games')]");
 
         private IWebElement MenuButton => Driver.FindElement(By.XPath("//a[@class='navbar-brand' and @role='button']"));
+        private IWebElement MoreButton => Driver.FindElements(By.XPath("//a[@data-toggle='dropdown']"))[0];
         private IWebElement DictionaryLanguageFromDropdown => Driver.FindElement(By.XPath("//*[@class='material-icons expandIcon']"));
         private IWebElement DictionaryLanguageToDropdown => Driver.FindElement(By.XPath("//*[@class='material-icons expandIcon right']"));
         private IWebElement DictionaryTextBox => Driver.FindElement(By.XPath("//*[@class='action-search typeahead tt-input']"));
@@ -22,7 +25,7 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
 
         public Pl_bab_laHomePage(IWebDriver driver) : base(driver) { }
 
-        public bool IsLoaded => VerifyIfElementIsVisible(loadingMarkerLocator);
+        public bool IsLoaded => VerifyIfElementIsVisible(LoadingMarkerLocator);
 
 
         internal Pl_bab_laHomePage LoadPage()
@@ -46,6 +49,15 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
             Assert.IsTrue(actualLanguage.Displayed, "Language from was not changed properly");
 
             return new Pl_bab_laHomePage(Driver);
+        }
+        
+        internal Pl_bab_laGamesPage GotoGamesPage()
+        {
+            MoreButton.Click();
+            var gamesLink = Wait.Until(ExpectedConditions.ElementToBeClickable(GamesLinkLocator));
+            gamesLink.Click();
+
+            return new Pl_bab_laGamesPage(Driver);
         }
 
         internal Pl_bab_laHomePage ChangeDictionaryLanguageToByClicking(string languageTo)

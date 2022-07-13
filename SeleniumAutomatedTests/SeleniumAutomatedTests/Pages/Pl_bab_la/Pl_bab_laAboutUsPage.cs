@@ -5,11 +5,11 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
 {
     public class Pl_bab_laAboutUsPage : BasePage
     {
-        private By loadingMarkerLocator => By.XPath("//h1[text()='O nas']");
+        private By LoadingMarkerLocator => By.XPath("//h1[text()='O nas']");
 
         public Pl_bab_laAboutUsPage(IWebDriver driver) : base(driver) { }
 
-        public bool IsLoaded => VerifyIfElementIsVisible(loadingMarkerLocator);
+        public bool IsLoaded => VerifyIfElementIsVisible(LoadingMarkerLocator);
 
         internal Pl_bab_laAboutUsPage VerifyIfPageIsLoaded()
         {

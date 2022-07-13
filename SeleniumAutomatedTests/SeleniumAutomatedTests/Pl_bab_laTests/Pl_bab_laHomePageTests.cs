@@ -65,5 +65,14 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
                 .GoToLifeAbroadPage()
                 .VerifyIfPageIsLoaded();
         }
+
+        [Test]
+        public void GoToGamesPageByLink()
+        {
+            GetPl_bab_laHomePageHandler()
+                .LoadPage()
+                .GotoGamesPage()
+                .VeryfiIfPageIsLoaded();
+        }
     }
 }
