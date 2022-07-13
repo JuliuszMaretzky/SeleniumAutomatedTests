@@ -5,9 +5,9 @@ using SeleniumExtras.WaitHelpers;
 using System;
 using System.Threading;
 
-namespace SeleniumAutomatedTests.Pages.pl_bab_la
+namespace SeleniumAutomatedTests.Pages.Pl_bab_la
 {
-    public class Pl_bab_laHomePage : Pl_bab_laBasePage
+    public class Pl_bab_laHomePage : BasePage
     {
         private By loadingMarkerLocator => By.XPath("//h1[contains(text(), 'Słownik online w ')]");
         private By AcceptPrivacyButtonLocator => By.Id("onetrust-accept-btn-handler");

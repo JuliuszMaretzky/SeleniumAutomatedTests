@@ -1,34 +1,17 @@
 ﻿using AutomationResources;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using SeleniumAutomatedTests.Pages.pl_bab_la;
 using SeleniumAutomatedTests.Pages.Pl_bab_la;
+using SeleniumAutomatedTests.Pl_bab_laTests;
 
 namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
 {
-    public class Pl_bab_laHomePageTests
+    public class Pl_bab_laHomePageTests:BaseTest
     {
-        private IWebDriver Driver;
-        private Pl_bab_laBasePage pageHandler;
-
-        [SetUp]
-        public virtual void Setup()
-        {
-            Driver = new WebDriverFactory().Create(BrowserType.Chrome);
-            pageHandler = new Pl_bab_laBasePage(Driver);
-        }
-
-        [TearDown]
-        public virtual void Teardown()
-        {
-            Driver.Close();
-            Driver.Quit();
-        }
-
         [Test]
         public void LoadHomePage()
         {
-            pageHandler.GetPl_bab_laHomePageObject()
+            GetPl_bab_laHomePageHandler()
                 .LoadPage();
         }
 
@@ -37,7 +20,7 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         [TestCase("Finnish", "Greek")]
         public void ChangeLanguagesToTranslateFromAndToByClicking(string languageFrom, string languageTo)
         {
-            pageHandler.GetPl_bab_laHomePageObject()
+            GetPl_bab_laHomePageHandler()
                 .LoadPage()
                 .ChangeDictionaryLanguageFromByClicking(languageFrom)
                 .ChangeDictionaryLanguageToByClicking(languageTo)
@@ -48,7 +31,7 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         [TestCase("Finnish")]
         public void VerifyIfLanguageWarningAppearsWhenFromLanguageIsSameAsTo(string language)
         {
-            pageHandler.GetPl_bab_laHomePageObject()
+            GetPl_bab_laHomePageHandler()
                 .LoadPage()
                 .ChangeDictionaryLanguageFromByClicking(language)
                 .ChangeDictionaryLanguageToByClicking(language)
@@ -60,7 +43,7 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         [TestCase("English", "Esperanto", "urgent", "urgently")]
         public void VerifyIfSuggestionIsVisibleAfterWriteWord(string languageFrom, string languageTo, string word, string suggestion)
         {
-            pageHandler.GetPl_bab_laHomePageObject()
+            GetPl_bab_laHomePageHandler()
                 .LoadPage()
                 .ChangeDictionaryLanguageFromByClicking(languageFrom)
                 .ChangeDictionaryLanguageToByClicking(languageTo)
@@ -71,7 +54,7 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         [Test]
         public void GoToAboutUsPageByLink()
         {
-            pageHandler.GetPl_bab_laHomePageObject()
+            GetPl_bab_laHomePageHandler()
                 .LoadPage()
                 .GoToAboutUsPage()
                 .VerifyIfPageIsLoaded();
@@ -80,7 +63,7 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         [Test]
         public void GoToLifeAbroadPageByLink()
         {
-            pageHandler.GetPl_bab_laHomePageObject()
+            GetPl_bab_laHomePageHandler()
                 .LoadPage()
                 .GoToLifeAbroadPage()
                 .VerifyIfPageIsLoaded();
