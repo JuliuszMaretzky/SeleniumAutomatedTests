@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using SeleniumAutomatedTests.Pages.Pl_bab_la;
 using SeleniumExtras.WaitHelpers;
-using System;
 using System.Threading;
 
 namespace SeleniumAutomatedTests.Pages.Pl_bab_la

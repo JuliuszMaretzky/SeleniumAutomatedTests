@@ -1,12 +1,9 @@
-﻿using AutomationResources;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using SeleniumAutomatedTests.Pages.Pl_bab_la;
+﻿using NUnit.Framework;
 using SeleniumAutomatedTests.Pl_bab_laTests;
 
 namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
 {
-    public class Pl_bab_laHomePageTests:BaseTest
+    public class Pl_bab_laHomePageTests : BaseTest
     {
         [Test]
         public void LoadHomePage()

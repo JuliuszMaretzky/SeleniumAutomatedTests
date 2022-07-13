@@ -2,9 +2,6 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumAutomatedTests.Pages.Pl_bab_la;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SeleniumAutomatedTests.Pl_bab_laTests
 {
