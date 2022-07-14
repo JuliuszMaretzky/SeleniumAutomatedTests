@@ -5,7 +5,7 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
 {
     public class Pl_bab_laHomePageTests : BaseTest
     {
-        [SetUp]
+        [OneTimeSetUp]
         public override void Setup()
         {
             base.Setup();
@@ -13,13 +13,6 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
             GetPl_bab_laHomePageHandler()
                 .LoadPage();
         }
-
-        //[Test]
-        //public void LoadHomePage()
-        //{
-        //    GetPl_bab_laHomePageHandler()
-        //        .LoadPage();
-        //}
 
         [TestCase("English", "Polish")]
         [TestCase("German", "Esperanto")]
@@ -46,7 +39,6 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         public void VerifyIfLanguageWarningAppearsWhenFromLanguageIsSameAsTo(string language)
         {
             GetPl_bab_laHomePageHandler()
-                .LoadPage()
                 .ChangeDictionaryLanguageFromByClicking(language)
                 .ChangeDictionaryLanguageToByClicking(language)
                 .PressEnterInDictionaryTextBox()
@@ -58,7 +50,6 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         public void VerifyIfSuggestionIsVisibleAfterWriteWord(string languageFrom, string languageTo, string word, string suggestion)
         {
             GetPl_bab_laHomePageHandler()
-                .LoadPage()
                 .ChangeDictionaryLanguageFromByClicking(languageFrom)
                 .ChangeDictionaryLanguageToByClicking(languageTo)
                 .WriteWord(word)
@@ -69,7 +60,6 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         public void GoToAboutUsPageByLink()
         {
             GetPl_bab_laHomePageHandler()
-                .LoadPage()
                 .GoToAboutUsPage()
                 .VerifyIfPageIsLoaded();
         }
@@ -78,7 +68,6 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         public void GoToLifeAbroadPageByLink()
         {
             GetPl_bab_laHomePageHandler()
-                .LoadPage()
                 .GoToLifeAbroadPage()
                 .VerifyIfPageIsLoaded();
         }
@@ -87,7 +76,6 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         public void GoToGamesPageByLink()
         {
             GetPl_bab_laHomePageHandler()
-                .LoadPage()
                 .GotoGamesPage()
                 .VeryfiIfPageIsLoaded();
         }

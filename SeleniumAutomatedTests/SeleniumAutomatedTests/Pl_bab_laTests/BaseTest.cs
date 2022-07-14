@@ -9,13 +9,13 @@ namespace SeleniumAutomatedTests.Pl_bab_laTests
     {
         protected IWebDriver Driver { get; set; }
 
-        [SetUp]
+        [OneTimeSetUp]
         public virtual void Setup()
         {
             Driver = new WebDriverFactory().Create(BrowserType.Chrome);
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public virtual void Teardown()
         {
             Driver.Close();
