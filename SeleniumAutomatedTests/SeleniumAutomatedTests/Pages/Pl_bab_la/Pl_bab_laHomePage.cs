@@ -6,14 +6,19 @@ using System.Threading;
 //a[@class='dropdown-toggle'
 namespace SeleniumAutomatedTests.Pages.Pl_bab_la
 {
-    public class Pl_bab_laHomePage : BasePage
+    public class Pl_bab_laHomePage : BasePage<Pl_bab_laHomePage>
     {
+        #region Locators
+
         private By LoadingMarkerLocator => By.XPath("//h1[contains(text(), 'Słownik online w ')]");
         private By AcceptPrivacyButtonLocator => By.Id("onetrust-accept-btn-handler");
         private By LanguageWarningTextLocator => By.XPath("//*[@style='opacity: 1; visibility: visible;']");
         private By AboutUsLinkLocator => By.XPath("//li[contains(@class, 'corporate')]");
         private By LifeAbroadLinkLocator => By.XPath("//li[contains(@class, 'magazine')]");
         private By GamesLinkLocator => By.XPath("//ul[@class='dropdown-menu']//a[contains(@onclick, 'games')]");
+
+        #endregion
+        #region WebElements
 
         private IWebElement MenuButton => Driver.FindElement(By.XPath("//a[@class='navbar-brand' and @role='button']"));
         private IWebElement MoreButton => Driver.FindElements(By.XPath("//a[@data-toggle='dropdown']"))[0];
@@ -23,10 +28,14 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
         private IWebElement SuggestionsList => Driver.FindElement(By.XPath("//*[@class='tt-dataset tt-dataset-babSuggestions']"));
         private IWebElement TranslateButton => Driver.FindElement(By.ClassName("action-panel-form-submit"));
 
-        public Pl_bab_laHomePage(IWebDriver driver) : base(driver) { }
+        #endregion
+
+        public Pl_bab_laHomePage(IWebDriver driver) : base(driver)
+        {
+            pageHandler = this;
+        }
 
         public bool IsLoaded => VerifyIfElementIsVisible(LoadingMarkerLocator);
-
 
         internal Pl_bab_laHomePage LoadPage()
         {
@@ -35,7 +44,7 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
             AcceptPrivacyPolicy();
             Assert.IsTrue(IsLoaded, "Page was not loaded properly");
 
-            return new Pl_bab_laHomePage(Driver);
+            return pageHandler;
         }
 
         internal Pl_bab_laHomePage ChangeDictionaryLanguageFromByClicking(string languageFrom)
@@ -48,9 +57,9 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
                 DictionaryLanguageFromDropdown.FindElement(By.XPath($"//*[@data-lang='{Constants.LanguageCode[languageFrom]}']"));
             Assert.IsTrue(actualLanguage.Displayed, "Language from was not changed properly");
 
-            return new Pl_bab_laHomePage(Driver);
+            return pageHandler;
         }
-        
+
         internal Pl_bab_laGamesPage GotoGamesPage()
         {
             MoreButton.Click();
@@ -70,7 +79,7 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
                 DictionaryLanguageToDropdown.FindElement(By.XPath($"//*[@data-lang='{Constants.LanguageCode[languageTo]}']"));
             Assert.IsTrue(actualLanguage.Displayed, "Language to was not changed properly");
 
-            return new Pl_bab_laHomePage(Driver);
+            return pageHandler;
         }
 
         internal Pl_bab_laLifeAbroadPage GoToLifeAbroadPage()
@@ -93,7 +102,7 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
         {
             DictionaryTextBox.SendKeys(Keys.Enter);
 
-            return new Pl_bab_laHomePage(Driver);
+            return pageHandler;
         }
 
         internal Pl_bab_laHomePage VerifyIfLanguageWarningIsVisible()
@@ -101,14 +110,14 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
             var languageWarning = Driver.FindElements(LanguageWarningTextLocator);
             Assert.IsTrue(languageWarning.Count == 1, "Language warning was not visible");
 
-            return new Pl_bab_laHomePage(Driver);
+            return pageHandler;
         }
 
         internal Pl_bab_laHomePage WriteWord(string word)
         {
             DictionaryTextBox.SendKeys(word);
 
-            return new Pl_bab_laHomePage(Driver);
+            return pageHandler;
         }
 
         internal Pl_bab_laHomePage VerifyIfSuggestionIsOnList(string suggestion)
@@ -117,7 +126,7 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
             var searchedSuggestions = SuggestionsList.FindElements(By.XPath($"div[text()='{suggestion}']"));
             Assert.IsTrue(searchedSuggestions.Count > 0, "Suggestion is not on the list");
 
-            return new Pl_bab_laHomePage(Driver);
+            return pageHandler;
         }
 
         internal Pl_bab_laHomePage VerifyTranslateBoxText(string languageFrom, string languageTo)
@@ -127,7 +136,7 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
                 $"{Constants.LanguageInPolish[languageFrom]} lub {Constants.LanguageInPolish[languageTo]}']"))
                 , "Translation Text Box did not show proper languages");
 
-            return new Pl_bab_laHomePage(Driver);
+            return pageHandler;
         }
 
         private Pl_bab_laHomePage AcceptPrivacyPolicy()
@@ -138,7 +147,7 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
             }
             catch (NoSuchElementException) { }
 
-            return new Pl_bab_laHomePage(Driver);
+            return pageHandler;
         }
     }
 }

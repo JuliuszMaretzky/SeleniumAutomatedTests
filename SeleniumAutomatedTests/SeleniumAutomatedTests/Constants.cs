@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SeleniumAutomatedTests
 {
@@ -20,8 +18,8 @@ namespace SeleniumAutomatedTests
         {
             ["English"] = "angielski",
             ["Esperanto"] = "esperanto",
-            ["Finnish"]="fiński",
-            ["Greek"]="grecki",
+            ["Finnish"] = "fiński",
+            ["Greek"] = "grecki",
             ["German"] = "niemiecki",
             ["Polish"] = "polski"
         };

@@ -1,16 +1,15 @@
-﻿using AutomationResources;
-using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
 
 namespace SeleniumAutomatedTests.Pages.Pl_bab_la
 {
-    public class BasePage
+    public class BasePage<T>
     {
         protected IWebDriver Driver { get; set; }
         protected WebDriverWait Wait { get; set; }
+        protected T pageHandler { get; set; }
 
         public BasePage(IWebDriver driver)
         {

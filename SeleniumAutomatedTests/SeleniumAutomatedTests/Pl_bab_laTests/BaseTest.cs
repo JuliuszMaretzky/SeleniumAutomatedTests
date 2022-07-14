@@ -22,7 +22,7 @@ namespace SeleniumAutomatedTests.Pl_bab_laTests
             Driver.Quit();
         }
 
-        #region Pages Fields
+        #region PageHandlers
 
         private Pl_bab_laHomePage pl_bab_laHomePage;
         private Pl_bab_laAboutUsPage pl_bab_laAboutUsPage;
@@ -30,7 +30,7 @@ namespace SeleniumAutomatedTests.Pl_bab_laTests
 
         #endregion
 
-        #region Page Handlers
+        #region GetPageHandler Methods
 
         protected Pl_bab_laHomePage GetPl_bab_laHomePageHandler()
         {
