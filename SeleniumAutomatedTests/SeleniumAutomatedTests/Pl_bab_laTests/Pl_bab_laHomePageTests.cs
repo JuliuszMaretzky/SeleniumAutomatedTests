@@ -5,12 +5,21 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
 {
     public class Pl_bab_laHomePageTests : BaseTest
     {
-        [Test]
-        public void LoadHomePage()
+        [SetUp]
+        public override void Setup()
         {
+            base.Setup();
+
             GetPl_bab_laHomePageHandler()
                 .LoadPage();
         }
+
+        //[Test]
+        //public void LoadHomePage()
+        //{
+        //    GetPl_bab_laHomePageHandler()
+        //        .LoadPage();
+        //}
 
         [TestCase("English", "Polish")]
         [TestCase("German", "Esperanto")]
@@ -18,10 +27,18 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         public void ChangeLanguagesToTranslateFromAndToByClicking(string languageFrom, string languageTo)
         {
             GetPl_bab_laHomePageHandler()
-                .LoadPage()
                 .ChangeDictionaryLanguageFromByClicking(languageFrom)
                 .ChangeDictionaryLanguageToByClicking(languageTo)
                 .VerifyTranslateBoxText(languageFrom, languageTo);
+        }
+
+        [Test]
+        public void ChangeLanguagesToTranslateFromAndToByTyping()
+        {
+            GetPl_bab_laHomePageHandler()
+                .ChangeDictionaryLanguageFromByTyping("japoński")
+                .ChangeDictionaryLanguageToByTyping("chiński")
+                .VerifyTranslateBoxText("Japanese", "Chinese");
         }
 
         [TestCase("Polish")]

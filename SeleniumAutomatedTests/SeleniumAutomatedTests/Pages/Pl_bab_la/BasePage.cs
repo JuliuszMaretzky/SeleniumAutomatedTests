@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
+using System.Collections.Generic;
 
 namespace SeleniumAutomatedTests.Pages.Pl_bab_la
 {
@@ -28,6 +29,19 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
             {
                 return false;
             }
+        }
+
+        protected string ReturnKeyFromDictionaryWhenValueIsGiven(Dictionary<string, string> dictionary, string value)
+        {
+            foreach (var keyValuePair in dictionary)
+            {
+                if (keyValuePair.Value == value)
+                {
+                    return keyValuePair.Key;
+                }
+            }
+
+            return null;
         }
     }
 }
