@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SeleniumAutomatedTests.Tests.Pl_bab_laTests
 {
-    public class Pl_bab_laAboutUsPageTests:BaseTest
+    public class Pl_bab_laAboutUsPageTests : Pl_bab_laBaseTest
     {
         [OneTimeSetUp]
         public override void Setup()
@@ -17,9 +17,11 @@ namespace SeleniumAutomatedTests.Tests.Pl_bab_laTests
         }
 
         [Test]
-        public void EmptyTest()
+        public void GoToContactPageByLink()
         {
-
+            GetPl_bab_laAboutUsPageHandler()
+                .GoToContactPageByLink()
+                .VeryfiIfPageIsLoaded();
         }
     }
 }

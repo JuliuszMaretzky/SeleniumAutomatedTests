@@ -13,11 +13,17 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
         private By AcceptPrivacyButtonLocator => By.Id("onetrust-accept-btn-handler");
 
         #endregion
+        #region WebElements
+
+        private IWebElement ContactButton => Driver.FindElements(By.XPath("//a[@href='/o-nas/kontakt/']"))[0];
+
+        #endregion
 
         public Pl_bab_laAboutUsPage(IWebDriver driver) : base(driver)
         {
             pageHandler = this;
         }
+
 
         internal Pl_bab_laAboutUsPage LoadPage()
         {
@@ -35,7 +41,7 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
         {
             Assert.IsTrue(IsLoaded, "About Us page did not load properly");
 
-            return new Pl_bab_laAboutUsPage(Driver);
+            return pageHandler;
         }
 
         private Pl_bab_laAboutUsPage AcceptPrivacyPolicy()
@@ -47,6 +53,13 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
             catch (NoSuchElementException) { }
 
             return pageHandler;
+        }
+
+        internal Pl_bab_laContactPage GoToContactPageByLink()
+        {
+            ContactButton.Click();
+
+            return new Pl_bab_laContactPage(Driver);
         }
     }
 }
