@@ -3,7 +3,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumAutomatedTests.Pages.Pl_bab_la;
 
-namespace SeleniumAutomatedTests.Pl_bab_laTests
+namespace SeleniumAutomatedTests.Tests.Pl_bab_laTests
 {
     public class BaseTest
     {

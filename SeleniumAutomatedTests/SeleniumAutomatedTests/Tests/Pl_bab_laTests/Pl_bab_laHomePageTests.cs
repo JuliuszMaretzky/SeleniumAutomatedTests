@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using SeleniumAutomatedTests.Pl_bab_laTests;
+using SeleniumAutomatedTests.Tests.Pl_bab_laTests;
 
 namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
 {
