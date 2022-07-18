@@ -3,7 +3,7 @@ using SeleniumAutomatedTests.Tests.Pl_bab_laTests;
 
 namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
 {
-    public class Pl_bab_laHomePageTests : BaseTest
+    public class Pl_bab_laHomePageTests : Pl_bab_laBaseTest
     {
         [OneTimeSetUp]
         public override void Setup()

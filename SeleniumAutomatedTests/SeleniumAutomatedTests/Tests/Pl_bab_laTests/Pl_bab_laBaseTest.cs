@@ -1,27 +1,12 @@
-﻿using AutomationResources;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using SeleniumAutomatedTests.Pages.Pl_bab_la;
+﻿using SeleniumAutomatedTests.Pages.Pl_bab_la;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SeleniumAutomatedTests.Tests.Pl_bab_laTests
 {
-    public class BaseTest
+    public class Pl_bab_laBaseTest:BaseTest
     {
-        protected IWebDriver Driver { get; set; }
-
-        [OneTimeSetUp]
-        public virtual void Setup()
-        {
-            Driver = new WebDriverFactory().Create(BrowserType.Chrome);
-        }
-
-        [OneTimeTearDown]
-        public virtual void Teardown()
-        {
-            Driver.Close();
-            Driver.Quit();
-        }
-
         #region PageHandlers
 
         private Pl_bab_laHomePage pl_bab_laHomePage;
