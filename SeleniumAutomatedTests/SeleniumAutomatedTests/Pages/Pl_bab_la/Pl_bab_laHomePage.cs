@@ -14,9 +14,12 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
         private By AcceptPrivacyButtonLocator => By.Id("onetrust-accept-btn-handler");
         private By LanguageWarningTextLocator => By.XPath("//*[@style='opacity: 1; visibility: visible;']");
         private By LanguageFilterTextBoxLocator => By.Id("langFilter");
+        private By DictionariesLinkLocator => By.XPath("//li[contains(@class, 'languages')]");
         private By AboutUsLinkLocator => By.XPath("//li[contains(@class, 'corporate')]");
-        private By LifeAbroadLinkLocator => By.XPath("//li[contains(@class, 'magazine')]");
+        private By LivingAbroadLinkLocator => By.XPath("//li[contains(@class, 'magazine')]");
         private By GamesLinkLocator => By.XPath("//ul[@class='dropdown-menu']//a[contains(@onclick, 'games')]");
+        private By QuizzesLinkLocator => By.XPath("//ul[@class='dropdown-menu']//a[contains(@onclick, 'quiz')]");
+        private By GrammarLinkLocator => By.XPath("//ul[@class='dropdown-menu']//a[contains(@onclick, 'grammar')]");
 
         #endregion
         #region WebElements
@@ -27,7 +30,8 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
         private IWebElement DictionaryLanguageToDropdown => Driver.FindElement(By.XPath("//*[@class='material-icons expandIcon right']"));
         private IWebElement DictionaryTextBox => Driver.FindElement(By.XPath("//*[@class='action-search typeahead tt-input']"));
         private IWebElement SuggestionsList => Driver.FindElement(By.XPath("//*[@class='tt-dataset tt-dataset-babSuggestions']"));
-
+        private IWebElement ConjugationPageLinkButton => Driver.FindElements(By.XPath("//ul[@class='nav navbar-nav']//a[@href='/koniugacja/']"))[0];
+        
         #endregion
 
         public Pl_bab_laHomePage(IWebDriver driver) : base(driver)
@@ -81,7 +85,6 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
 
             return pageHandler;
         }
-
         internal Pl_bab_laHomePage ChangeDictionaryLanguageToByClicking(string languageTo)
         {
             DictionaryLanguageToDropdown.Click();
@@ -117,36 +120,61 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
             return pageHandler;
         }
 
-        internal Pl_bab_laLifeAbroadPage GoToLifeAbroadPage()
+        internal Pl_bab_laHomePage OpenMenuByClick()
         {
             MenuButton.Click();
 
-            var lifeAbroadLink = Wait.Until(ExpectedConditions.ElementIsVisible(LifeAbroadLinkLocator));
-            lifeAbroadLink.Click();
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(Driver.FindElement(DictionariesLinkLocator).Displayed, "Dictionaries button is not visible");
+                Assert.IsTrue(Driver.FindElement(LivingAbroadLinkLocator).Displayed, "Living abroad button is not visible");
+                Assert.IsTrue(Driver.FindElement(AboutUsLinkLocator).Displayed, "About us button is not visible");
+            });
+
+            return pageHandler;
+        }
+
+        internal Pl_bab_laHomePage OpenMoreMenuButtonByClick()
+        {
+            MoreButton.Click();
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(Driver.FindElement(GamesLinkLocator).Displayed, "Games button is not visible");
+                Assert.IsTrue(Driver.FindElement(QuizzesLinkLocator).Displayed, "Quizzes button is not visible");
+                Assert.IsTrue(Driver.FindElement(GrammarLinkLocator).Displayed, "Grammar button is not visible");
+            });
+
+            return pageHandler;
+        }
+
+        internal Pl_bab_laLifeAbroadPage GoToLivingAbroadPageFromMenu()
+        {
+            var livingAbroadLink = Wait.Until(ExpectedConditions.ElementIsVisible(LivingAbroadLinkLocator));
+            livingAbroadLink.Click();
 
             return new Pl_bab_laLifeAbroadPage(Driver);
         }
 
-        internal Pl_bab_laAboutUsPage GoToAboutUsPage()
+        internal Pl_bab_laAboutUsPage GoToAboutUsPageFromMenu()
         {
-            MenuButton.Click();
-
             var aboutUsLink = Wait.Until(ExpectedConditions.ElementIsVisible(AboutUsLinkLocator));
             aboutUsLink.Click();
 
             return new Pl_bab_laAboutUsPage(Driver);
         }
 
-        internal Pl_bab_laGamesPage GotoGamesPage()
+        internal Pl_bab_laGamesPage GotoGamesPageFromMoreMenu()
         {
-            MoreButton.Click();
-
             var gamesLink = Wait.Until(ExpectedConditions.ElementToBeClickable(GamesLinkLocator));
             gamesLink.Click();
 
             return new Pl_bab_laGamesPage(Driver);
         }
 
+        ///<summary>
+        ///Only for veryfying language warning visibility with same language from and to, and with empty word box
+        /// </summary>
         internal Pl_bab_laHomePage PressEnterInDictionaryTextBox()
         {
             DictionaryTextBox.SendKeys(Keys.Enter);
@@ -197,6 +225,13 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
             catch (NoSuchElementException) { }
 
             return pageHandler;
+        }
+
+        internal Pl_bab_laConjugationPage GoToConjugationPageByLinkInTopMenuBar()
+        {
+            ConjugationPageLinkButton.Click();
+
+            return new Pl_bab_laConjugationPage(Driver);
         }
     }
 }

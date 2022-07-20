@@ -160,6 +160,5 @@ namespace SeleniumAutomatedTests.Pages.Pl_bab_la
 
             return pageHandler;
         }
-
     }
 }

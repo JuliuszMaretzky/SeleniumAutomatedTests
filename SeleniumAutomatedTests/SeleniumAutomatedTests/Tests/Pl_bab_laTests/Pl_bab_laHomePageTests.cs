@@ -57,27 +57,38 @@ namespace SeleniumAutomatedTests.Tests.pl_bab_laTests
         }
 
         [Test]
-        public void GoToAboutUsPageByLink()
+        public void GoToAboutUsPageByLinkInMenu()
         {
             GetPl_bab_laHomePageHandler()
-                .GoToAboutUsPage()
+                .OpenMenuByClick()
+                .GoToAboutUsPageFromMenu()
                 .VerifyIfPageIsLoaded();
         }
 
         [Test]
-        public void GoToLifeAbroadPageByLink()
+        public void GoToLivingAbroadPageByLinkInMenu()
         {
             GetPl_bab_laHomePageHandler()
-                .GoToLifeAbroadPage()
+                .OpenMenuByClick()
+                .GoToLivingAbroadPageFromMenu()
                 .VerifyIfPageIsLoaded();
         }
 
         [Test]
-        public void GoToGamesPageByLink()
+        public void GoToGamesPageByLinkInMoreMenu()
         {
             GetPl_bab_laHomePageHandler()
-                .GotoGamesPage()
+                .OpenMoreMenuButtonByClick()
+                .GotoGamesPageFromMoreMenu()
                 .VeryfiIfPageIsLoaded();
+        }
+
+        [Test]
+        public void GoToConjugationPageByLink()
+        {
+            GetPl_bab_laHomePageHandler()
+                .GoToConjugationPageByLinkInTopMenuBar()
+                .VerifyIfPageIsLoaded();
         }
     }
 }
