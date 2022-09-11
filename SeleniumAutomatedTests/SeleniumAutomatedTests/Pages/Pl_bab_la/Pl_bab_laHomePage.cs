@@ -3,14 +3,14 @@ using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 using System;
 using System.Threading;
-//a[@class='dropdown-toggle'
+
 namespace SeleniumAutomatedTests.Pages.Pl_bab_la
 {
     public class Pl_bab_laHomePage : BasePage<Pl_bab_laHomePage>
     {
         #region Locators
 
-        private By LoadingMarkerLocator => By.XPath("//h1[contains(text(), 'Słownik online w ')]");
+        private By LoadingMarkerLocator => By.XPath("//h1[contains(text(), 'Dla wszystkich Twoich potrzeb')]");
         private By AcceptPrivacyButtonLocator => By.Id("onetrust-accept-btn-handler");
         private By LanguageWarningTextLocator => By.XPath("//*[@style='opacity: 1; visibility: visible;']");
         private By LanguageFilterTextBoxLocator => By.Id("langFilter");
